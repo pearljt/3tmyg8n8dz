@@ -11,9 +11,22 @@ $( document ).ready(function() {
 
 
 // setting
+	fontarray()
+	function fontarray(){
+		for (var i = 0; i < FontArray.length ; i++) {
+			var Font = document.createElement("div");
+			var checkbox = document.createElement("input");
+				checkbox.type="checkbox" 
+				checkbox.value = FontArray[i]
+    			checkbox.classList.add('fontlist')
+			Font.appendChild(checkbox);  
+			Font.innerHTML += FontArray[i]
+			document.getElementById("fontlist_wrapper").appendChild(Font); 
+		}
+	}
 	objectarray()
 	function objectarray(){
-		for (var i = FontsInUseArray.length - 1; i >= 0; i--) {
+		for (var i =  0; i < FontsInUseArray.length; i++) {
 			var FontsInUseObject = document.createElement("div");
 			var checkbox = document.createElement("input");
 				checkbox.type="checkbox" 
