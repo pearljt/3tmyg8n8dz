@@ -30,8 +30,8 @@ const FontsInUseArray = [{
 						                mix_blend_mode:,
 												},
 								location: {	
-						                margin_left:,
-						                margin_top:,
+						                left:,
+						               	top:,
 						                padding:,
 						                padding_top:,
 						                transform:,
