@@ -6,7 +6,10 @@ $( document ).ready(function() {
 	// setting
 	// import fonts
 	var fontdata
+
 		const FontArray = []
+		const nolatin = []
+		const noregular =[]
 		$.ajax({
 		    url: "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyDpJHSumtll0K3WLx_QGbikom7kxKgAxw4",
 		    type: "GET",
@@ -14,6 +17,18 @@ $( document ).ready(function() {
 		    cache: true,
 		    success: function (data, status, error) {
 		      getlist(data, status, error)
+
+			// fallbacks
+		      	for (var i = data.items.length - 1; i >= 0; i--) {
+			      	if(!data.items[i].subsets[0] === 'latin'){
+			      		 nolatin.push(data.items[i].family)
+			      	}
+		      	}
+		      	for (var i = data.items.length - 1; i >= 0; i--) {
+			      	if(!data.items[i].variants[0] === 'regular'){
+			      		 noregular.push(data.items[i].family)
+			      	}
+		      	}
 		    },
 		    error: function (data, status, error) {
 		      console.log('error', data, status, error);
@@ -25,7 +40,6 @@ $( document ).ready(function() {
 		    for (var i = 0; i < items.length ; i++) {
 		    	FontArray.push(items[i].family)
 		    }
-		    console.log(FontArray)
 			fontarray()
 		}
 		function fontarray(){
@@ -40,8 +54,6 @@ $( document ).ready(function() {
 				document.getElementById("fontlist_wrapper").appendChild(Font); 
 			}
 		}
-
-
 
 	// import objects
 		objectarray()
@@ -213,12 +225,16 @@ function initiate(){
 		var apiUrl = [];
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
 		apiUrl.push(fontvalue.replace(/ /g, '+'));
-		// for (var i = fontdata.length - 1; i >= 0; i--) {
-		// 	if(fontdata[i].family == fontvalue){
-  // 				apiUrl.push(':');
-		// 		apiUrl.push(fontdata[i].variants)
-		// 	}
-		// }
+
+
+		  apiUrl.push(':');
+		  apiUrl.push('regular');
+
+		  apiUrl.push('&subset=');
+		  apiUrl.push('latin');
+
+		  apiUrl.push('&display=swap');
+
 		var url = apiUrl.join('');
 	    var fontlink = document.createElement('link'); 
 	    fontlink.href = url;
