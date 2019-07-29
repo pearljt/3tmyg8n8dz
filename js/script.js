@@ -213,12 +213,12 @@ function initiate(){
 		var apiUrl = [];
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
 		apiUrl.push(fontvalue.replace(/ /g, '+'));
-		for (var i = fontdata.length - 1; i >= 0; i--) {
-			if(fontdata[i].family == fontvalue){
-  				apiUrl.push(':');
-				 apiUrl.push(fontdata[i].variants)
-			}
-		}
+		// for (var i = fontdata.length - 1; i >= 0; i--) {
+		// 	if(fontdata[i].family == fontvalue){
+  // 				apiUrl.push(':');
+		// 		apiUrl.push(fontdata[i].variants)
+		// 	}
+		// }
 		var url = apiUrl.join('');
 	    var fontlink = document.createElement('link'); 
 	    fontlink.href = url;
