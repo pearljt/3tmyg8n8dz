@@ -45,23 +45,7 @@ const FontsInUseArray = [{
 						                text_transform:,
 						                color:,
 										}
-							}
-						]
-	},{
-		name :,
-		number_of_textbox:,
-		content_type:,
-		is_primary:,
-		restrictions: {
-			avoid_font_category: [,
-		        ],
-			force_font_category: [
-		        ]
-		},
-		wrapper_style: {
-					background : 
-						},
-		textbox_style: [
+							},
 							{
 								whole: {	
 										name:,
@@ -95,5 +79,5 @@ const FontsInUseArray = [{
 										}
 							}
 						]
-	}...
+	}
 ]

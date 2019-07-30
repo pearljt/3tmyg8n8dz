@@ -8,8 +8,8 @@ $( document ).ready(function() {
 	var fontdata
 
 		const FontArray = []
-		const nolatin = []
-		const noregular =[]
+		const noLatin = []
+		const noRegular =[]
 		$.ajax({
 		    url: "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyDpJHSumtll0K3WLx_QGbikom7kxKgAxw4",
 		    type: "GET",
@@ -17,40 +17,27 @@ $( document ).ready(function() {
 		    cache: true,
 		    success: function (data, status, error) {
 		      getlist(data, status, error)
-
-			// fallbacks
-		      	for (var i = data.items.length - 1; i >= 0; i--) {
-			      	if(!data.items[i].subsets[0] === 'latin'){
-			      		 nolatin.push(data.items[i].family)
-			      	}
-		      	}
-		      	for (var i = data.items.length - 1; i >= 0; i--) {
-			      	if(!data.items[i].variants[0] === 'regular'){
-			      		 noregular.push(data.items[i].family)
-			      	}
-		      	}
 		    },
 		    error: function (data, status, error) {
 		      console.log('error', data, status, error);
 		    }
 		});
 		function getlist(data, status, error){
-		    var items = data.items
-		    fontdata = data.items
-		    for (var i = 0; i < items.length ; i++) {
-		    	FontArray.push(items[i].family)
+		    fontdata = data
+		    for (var i = 0; i < data.items.length ; i++) {
+		    	FontArray.push(i)
 		    }
 			fontarray()
 		}
 		function fontarray(){
-			for (var i = 0; i < FontArray.length ; i++) {
+			for (var i = 0; i < fontdata.items.length ; i++) {
 				var Font = document.createElement("div");
 				var checkbox = document.createElement("input");
 					checkbox.type="checkbox" 
-					checkbox.value = FontArray[i]
+					checkbox.value = i
 					checkbox.classList.add('fontlist')
 				Font.appendChild(checkbox);  
-				Font.innerHTML += FontArray[i]
+				Font.innerHTML += fontdata.items[i].family
 				document.getElementById("fontlist_wrapper").appendChild(Font); 
 			}
 		}
@@ -149,11 +136,13 @@ $( document ).ready(function() {
 	//default style
 		default_style()
 		function default_style(){
-			console.log('hey')
 			var style = document.createElement('style');
 			style.type = 'text/css';
 			style.innerHTML = 
-				'.wrapper{\
+				'.title{\
+	                width:'+wrapper_width+'px;\
+	            }\
+				.wrapper, .wrapper_title{\
 	                width:'+wrapper_width+'px;\
 	                height:'+wrapper_width*3/4+'px;\
 	                overflow: hidden;\
@@ -189,11 +178,11 @@ $( document ).ready(function() {
 
 		var fontlist = document.getElementsByClassName('fontlist')
 		var checkedfont_length = 0
-		for (var i = fontlist.length - 1; i >= 0; i--) {
+		for (var i = 0; i <  fontlist.length; i++) {
 			if(fontlist[i].checked){
 				checkedfont_length++
-				import_font(fontlist[i].value, checkedfont_length)
-				build_image(selectedobject, checkedfont_length)
+				import_font(fontlist[i].value, checkedfont_length, selectedobject)
+				build_image(selectedobject, checkedfont_length, fontlist[i].value)
 			}
 		}
 	})
@@ -203,13 +192,11 @@ $( document ).ready(function() {
 function initiate(){
 
 	var generated_fonts = document.getElementsByTagName('link');
-	console.log(generated_fonts.length)
 	for (var i=0, max = generated_fonts.length; i < max; i++) {
 	    generated_fonts[0].parentNode.removeChild(generated_fonts[0]);
 	}
 
 	var generated_styles = document.getElementsByTagName('style');
-	console.log(generated_styles.length)
 	for (var i=2, max = generated_styles.length; i < max; i++) {
 	    generated_styles[2].parentNode.removeChild(generated_styles[2]);
 	}
@@ -221,19 +208,60 @@ function initiate(){
 
 }
 
-	function import_font(fontvalue, k){
+	function import_font(fontvalue, k, selectedobject){
 		var apiUrl = [];
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
-		apiUrl.push(fontvalue.replace(/ /g, '+'));
+		apiUrl.push(fontdata.items[Number(fontvalue)].family.replace(/ /g, '+'));
+
+		apiUrl.push(':');
+		var font_varients_array = []
+		for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
+			// weight
+				console.log(fontdata.items[Number(fontvalue)].variants)
+				console.log(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())
+
+			if(fontdata.items[Number(fontvalue)].variants.includes(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())){
+				console.log('matches')
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+					font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+'i');
+				}else{
+					font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight);
+				}
+
+			}else{
+
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+					font_varients_array.push(fontdata.items[Number(fontvalue)].variants[0]+'i');
+				}else{
+					font_varients_array.push(fontdata.items[Number(fontvalue)].variants[0]);
+				}
+
+			}
+		}
+		var font_varients_array_dup = [];
+		$.each(font_varients_array, function(i, el){
+		    if($.inArray(el, font_varients_array_dup) === -1) font_varients_array_dup.push(el);
+		});
 
 
-		  apiUrl.push(':');
-		  apiUrl.push('regular');
+		apiUrl.push(font_varients_array_dup.join())
+								                // font_style: 'inherit',
+						                // line_height: 1.5,
+						                // text_align: 'left',
+						                // text_transform: 'initial'
+		// if(noRegular.some(item => item == fontvalue)){
+		// 	}else{
+		// 		apiUrl.push(':');
+		// 		apiUrl.push('regular');
+		// }
 
-		  apiUrl.push('&subset=');
-		  apiUrl.push('latin');
+		if(noLatin.some(item => item == fontvalue)){
+			}else{
+				apiUrl.push('&subset=');
+				apiUrl.push('latin');
+		}
 
-		  apiUrl.push('&display=swap');
+		apiUrl.push('&display=swap');
 
 		var url = apiUrl.join('');
 	    var fontlink = document.createElement('link'); 
@@ -244,13 +272,15 @@ function initiate(){
 
 		var style = document.createElement('style');
 		style.type = 'text/css';
-		style.innerHTML ='.wrapper_'+k+' div{font-family:'+fontvalue+'}'
+		style.innerHTML ='.wrapper_'+k+' div{font-family:'+fontdata.items[Number(fontvalue)].family+'}'
 		document.getElementsByTagName('head')[0].appendChild(style);
 	}
 
 
 
-	function build_image(selectedobject, k){
+	function build_image(selectedobject, k, font){
+		var wrapper_title = document.createElement("div");
+		wrapper_title.classList.add('wrapper_title')
 		var wrapper = document.createElement("div");
 		wrapper.classList.add('wrapper')
 		wrapper.classList.add('wrapper_'+k)
@@ -263,6 +293,17 @@ function initiate(){
 					var selectedcontent = contentlist[i].value
 				}
 			}
+		var title = document.createElement("div");
+		title.classList.add('title')
+		title.innerHTML = fontdata.items[font].family
+		wrapper_title.appendChild(title)
+
+		if(FontsInUseArray[selectedobject].restrictions.avoid_font_category.includes(fontdata.items[font].family)){
+			var Avoid = document.createElement("div");
+			Avoid.classList.add('Avoid')
+			Avoid.innerHTML = 'Avoid This Font'
+		wrapper_title.appendChild(Avoid)
+		}
 		for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
 			var textbox = document.createElement("div");
 			textbox.classList.add('textbox')
@@ -274,7 +315,8 @@ function initiate(){
 
 			wrapper.appendChild(textbox);
 		}
-		document.getElementById("whole").appendChild(wrapper); 
+		wrapper_title.appendChild(wrapper); 
+		document.getElementById("whole").appendChild(wrapper_title); 
 	}
 
 
@@ -310,7 +352,7 @@ function initiate(){
 			                padding-top: '+FontsInUseArray[selectedobject].textbox_style[i].location.padding_top+'%;\
 			                transform: '+FontsInUseArray[selectedobject].textbox_style[i].location.transform+';\
 							\
-			                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].font.font_size/840)*wrapper_width+'pt;\
+			                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].font.font_size/840)*wrapper_width+'px;\
 			                font-style: '+FontsInUseArray[selectedobject].textbox_style[i].font.font_style+';\
 			                font-weight: '+FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+';\
 			                line-height: '+FontsInUseArray[selectedobject].textbox_style[i].font.line_height+'em;\
@@ -340,9 +382,9 @@ function initiate(){
 		for (var i = colorarray_length-1; i >= 0; i--) {
 			if(FontsInUseArray[selectedobject].color.generate_color){
 				style.innerHTML += 
-					'.wrapper:nth-child('+colorarray_length+'n-'+i+'){\
+					'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper{\
 						background : '+ColorArray[i].background_color+'\
-					}.wrapper:nth-child('+colorarray_length+'n-'+i+')>div{\
+					}.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div{\
 						color : '+ColorArray[i].fontcolor+'\
 					}'
 			}
