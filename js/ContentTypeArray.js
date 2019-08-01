@@ -1,10 +1,11 @@
 const ContentTypeArray ={
 	sentence : [
-		'I trust so, and I only trust',
-		'A gleam of stars looks down',
-		'Let us pause and try',
-		'Go back in peace',
-		'T was such a little, little boat'
+		'A little life with dried tubers',
+		'Let the beauty of your heart speak',
+		'Good things come to those who wait',
+		'Offer no angles to the wind',
+		'A cat may look at a king',
+		'I trust so, and I only trust'
 	],
 	character : [
 		's', 'p', 'k'
@@ -31,6 +32,14 @@ const ContentTypeArray ={
 		My gaolers turned the key in the door, \
 		and I could hear them shifting their feet\
 		as they stood on guard outside.'
+
+	],
+	specialCharacter : [
+		'* % & {} # * % & {} #'
+
+	],
+	words : [
+		'spring evening'
 
 	]
 }

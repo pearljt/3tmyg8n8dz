@@ -2,6 +2,8 @@
 $( document ).ready(function() {
 
 	var wrapper_width = window.innerWidth*0.25
+	var wrapper_height = (wrapper_width/4)*3
+
 
 	// setting
 	// import fonts
@@ -112,6 +114,21 @@ $( document ).ready(function() {
 				character.innerHTML += ContentTypeArray.character[i]
 				document.getElementById("contentlist_wrapper").appendChild(character); 
 			}
+				var specialCharacter = document.createElement("div");
+	    		specialCharacter.classList.add('specialCharacter')
+				specialCharacter.innerHTML += 'specialCharacter'
+				document.getElementById("contentlist_wrapper").appendChild(specialCharacter);
+			for (var i = ContentTypeArray.specialCharacter.length - 1; i >= 0; i--) {
+				var specialCharacter = document.createElement("div");
+	    			specialCharacter.classList.add('specialCharacter')
+				var checkbox = document.createElement("input");
+					checkbox.type="checkbox" 
+					checkbox.value = ContentTypeArray.specialCharacter[i]
+	    			checkbox.classList.add('contentlist')
+				specialCharacter.appendChild(checkbox);  
+				specialCharacter.innerHTML += ContentTypeArray.specialCharacter[i]
+				document.getElementById("contentlist_wrapper").appendChild(specialCharacter); 
+			}
 				var paragraph = document.createElement("div");
 	    		paragraph.classList.add('paragraph')
 				paragraph.innerHTML += 'Paragraph'
@@ -213,15 +230,12 @@ function initiate(){
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
 		apiUrl.push(fontdata.items[Number(fontvalue)].family.replace(/ /g, '+'));
 
-		apiUrl.push(':');
 		var font_varients_array = []
 		for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
 			// weight
-				console.log(fontdata.items[Number(fontvalue)].variants)
-				console.log(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())
 
 			if(fontdata.items[Number(fontvalue)].variants.includes(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())){
-				console.log('matches')
+				font_varients_array.push(':');
 				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
 					font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+'i');
 				}else{
@@ -230,11 +244,11 @@ function initiate(){
 
 			}else{
 
-				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
-					font_varients_array.push(fontdata.items[Number(fontvalue)].variants[0]+'i');
-				}else{
-					font_varients_array.push(fontdata.items[Number(fontvalue)].variants[0]);
-				}
+				// if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+				// 	font_varients_array.push('400i');
+				// }else{
+				// 	font_varients_array.push('400');
+				// }
 
 			}
 		}
@@ -287,7 +301,6 @@ function initiate(){
 
 		var selectedcontent
 		var contentlist = document.getElementsByClassName('contentlist')
-		console.log(contentlist.length)
 			for (var i = contentlist.length - 1; i >= 0; i--) {
 				if(contentlist[i].checked){
 					var selectedcontent = contentlist[i].value
@@ -352,7 +365,7 @@ function initiate(){
 			                padding-top: '+FontsInUseArray[selectedobject].textbox_style[i].location.padding_top+'%;\
 			                transform: '+FontsInUseArray[selectedobject].textbox_style[i].location.transform+';\
 							\
-			                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].font.font_size/840)*wrapper_width+'px;\
+			                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].font.font_size/630)*wrapper_height+'px;\
 			                font-style: '+FontsInUseArray[selectedobject].textbox_style[i].font.font_style+';\
 			                font-weight: '+FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+';\
 			                line-height: '+FontsInUseArray[selectedobject].textbox_style[i].font.line_height+'em;\
@@ -384,9 +397,19 @@ function initiate(){
 				style.innerHTML += 
 					'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper{\
 						background : '+ColorArray[i].background_color+'\
-					}.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div{\
-						color : '+ColorArray[i].fontcolor+'\
 					}'
+					for (var k = FontsInUseArray[selectedobject].color.mainfont_color.length - 1; k>= 0; k--) {
+						style.innerHTML += 
+						'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div:nth-child('+FontsInUseArray[selectedobject].color.mainfont_color[k]+'){\
+						color :  '+ColorArray[i].fontcolor+'\
+						}'
+					}
+					for (var j = FontsInUseArray[selectedobject].color.mainfont_color.length - 1; j >= 0; j--) {
+						style.innerHTML += 
+						'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div:nth-child('+FontsInUseArray[selectedobject].color.subfont_color[j]+'){\
+							color : '+ColorArray[i].subfontcolor+'\
+						}'
+					}
 			}
 		}
 		document.getElementsByTagName('head')[0].appendChild(style);
