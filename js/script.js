@@ -230,35 +230,35 @@ function initiate(){
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
 		apiUrl.push(fontdata.items[Number(fontvalue)].family.replace(/ /g, '+'));
 
-		var font_varients_array = []
-		for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
-			// weight
+		// var font_varients_array = []
+		// for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
+		// 	// weight
 
-			if(fontdata.items[Number(fontvalue)].variants.includes(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())){
-				font_varients_array.push(':');
-				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
-					font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+'i');
-				}else{
-					font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight);
-				}
+		// 	if(fontdata.items[Number(fontvalue)].variants.includes(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())){
+		// 		font_varients_array.push(':');
+		// 		if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+		// 			font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+'i');
+		// 		}else{
+		// 			font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight);
+		// 		}
 
-			}else{
+		// 	}else{
 
-				// if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
-				// 	font_varients_array.push('400i');
-				// }else{
-				// 	font_varients_array.push('400');
-				// }
+		// 		// if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+		// 		// 	font_varients_array.push('400i');
+		// 		// }else{
+		// 		// 	font_varients_array.push('400');
+		// 		// }
 
-			}
-		}
-		var font_varients_array_dup = [];
-		$.each(font_varients_array, function(i, el){
-		    if($.inArray(el, font_varients_array_dup) === -1) font_varients_array_dup.push(el);
-		});
+		// 	}
+		// }
+		// var font_varients_array_dup = [];
+		// $.each(font_varients_array, function(i, el){
+		//     if($.inArray(el, font_varients_array_dup) === -1) font_varients_array_dup.push(el);
+		// });
 
 
-		apiUrl.push(font_varients_array_dup.join())
+		// apiUrl.push(font_varients_array_dup.join())
 								                // font_style: 'inherit',
 						                // line_height: 1.5,
 						                // text_align: 'left',
@@ -363,6 +363,7 @@ function initiate(){
 			                top: '+FontsInUseArray[selectedobject].textbox_style[i].location.top+'%;\
 			                padding: '+FontsInUseArray[selectedobject].textbox_style[i].location.padding+'%;\
 			                padding-top: '+FontsInUseArray[selectedobject].textbox_style[i].location.padding_top+'%;\
+			                padding-bottom: '+FontsInUseArray[selectedobject].textbox_style[i].location.padding_bottom+'%;\
 			                transform: '+FontsInUseArray[selectedobject].textbox_style[i].location.transform+';\
 							\
 			                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].font.font_size/630)*wrapper_height+'px;\
