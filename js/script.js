@@ -8,10 +8,9 @@ $( document ).ready(function() {
 	// setting
 	// import fonts
 	var fontdata
+	var noLatin = []
 
 		const FontArray = []
-		const noLatin = []
-		const noRegular =[]
 		$.ajax({
 		    url: "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyDpJHSumtll0K3WLx_QGbikom7kxKgAxw4",
 		    type: "GET",
@@ -225,17 +224,179 @@ function initiate(){
 
 }
 
+// var closest = counts.reduce(function(prev, curr) {
+//   return (Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev);
+// });
+
+
+
 	function import_font(fontvalue, k, selectedobject){
 		var apiUrl = [];
 		apiUrl.push('https://fonts.googleapis.com/css?family=');
 		apiUrl.push(fontdata.items[Number(fontvalue)].family.replace(/ /g, '+'));
 
-		// var font_varients_array = []
-		// for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
-		// 	// weight
+		var font_varients_array = []
+		for (var i = 0; i < FontsInUseArray[selectedobject].number_of_textbox; i++) {
 
-		// 	if(fontdata.items[Number(fontvalue)].variants.includes(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight.toString())){
-		// 		font_varients_array.push(':');
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==300){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("300i")){
+							font_varients_array.push('300i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("400i")){
+							font_varients_array.push('400i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("200i")){
+							font_varients_array.push('200i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("300")||fontdata.items[Number(fontvalue)].variants.includes("regular")){
+							font_varients_array.push('300');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("400")){
+							font_varients_array.push('400');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("200")){
+							font_varients_array.push('200');
+					}
+				}
+			}
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==400){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("400i")){
+							font_varients_array.push('400i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("500i")){
+							font_varients_array.push('500i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("300i")){
+							font_varients_array.push('300i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("400")){
+							font_varients_array.push('400');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("500")){
+							font_varients_array.push('500');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("300")||fontdata.items[Number(fontvalue)].variants.includes("regular")){
+							font_varients_array.push('300');
+					}
+				}
+			}
+
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==500){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("500i")){
+							font_varients_array.push('500i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("600i")){
+							font_varients_array.push('600i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("400i")){
+							font_varients_array.push('400i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("500")){
+							font_varients_array.push('500');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("600")){
+							font_varients_array.push('600');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("400")){
+							font_varients_array.push('400');
+					}
+				}
+			}
+
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==600){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("600i")){
+							font_varients_array.push('600i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("700i")){
+							font_varients_array.push('700i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("500i")){
+							font_varients_array.push('500i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("600")){
+							font_varients_array.push('600');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("700")){
+							font_varients_array.push('700');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("500")){
+							font_varients_array.push('500');
+					}
+				}
+			}
+
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==700){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("700i")){
+							font_varients_array.push('700i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("800i")){
+							font_varients_array.push('800i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("600i")){
+							font_varients_array.push('600i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("700")){
+							font_varients_array.push('700');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("800")){
+							font_varients_array.push('800');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("600")){
+							font_varients_array.push('600');
+					}
+				}
+			}
+
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==800){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("800i")){
+							font_varients_array.push('800i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("900i")){
+							font_varients_array.push('900i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("700i")){
+							font_varients_array.push('700i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("800")){
+							font_varients_array.push('800');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("900")){
+							font_varients_array.push('900');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("700")){
+							font_varients_array.push('700');
+					}
+				}
+			}
+
+
+			if(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight==900){
+				font_varients_array.push(':');
+				if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic' ){
+					if(fontdata.items[Number(fontvalue)].variants.includes("900i")){
+							font_varients_array.push('900i');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("800i")){
+							font_varients_array.push('800i');
+					}
+				}else{
+					if(fontdata.items[Number(fontvalue)].variants.includes("900")){
+							font_varients_array.push('900');
+					}else if(fontdata.items[Number(fontvalue)].variants.includes("800")){
+							font_varients_array.push('800');
+					}
+				}
+			}
+
+
+
+
+
+		}
+		var font_varients_array_dup = [];
+		$.each(font_varients_array, function(i, el){
+		    if($.inArray(el, font_varients_array_dup) === -1) font_varients_array_dup.push(el);
+		});
+		apiUrl.push(font_varients_array_dup.join().replace(":,", ":"))
 		// 		if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
 		// 			font_varients_array.push(FontsInUseArray[selectedobject].textbox_style[i].font.font_weight+'i');
 		// 		}else{
@@ -244,21 +405,27 @@ function initiate(){
 
 		// 	}else{
 
-		// 		// if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
-		// 		// 	font_varients_array.push('400i');
-		// 		// }else{
-		// 		// 	font_varients_array.push('400');
-		// 		// }
+		// 		if(FontsInUseArray[selectedobject].textbox_style[i].font.font_style === 'italic'){
+		// 			if(fontdata.items[Number(fontvalue)].variants.includes('400i')){
+		// 			font_varients_array.push('400i');
+		// 			}else{
+		// 				Math.floor(str)
+		// 			}
+		// 		}else{
+		// 			font_varients_array.push('400');
+		// 		}
 
 		// 	}
 		// }
-		// var font_varients_array_dup = [];
-		// $.each(font_varients_array, function(i, el){
-		//     if($.inArray(el, font_varients_array_dup) === -1) font_varients_array_dup.push(el);
-		// });
 
 
-		// apiUrl.push(font_varients_array_dup.join())
+
+
+
+
+
+
+
 								                // font_style: 'inherit',
 						                // line_height: 1.5,
 						                // text_align: 'left',
@@ -313,7 +480,7 @@ function initiate(){
 
 		if(FontsInUseArray[selectedobject].restrictions.avoid_font_category.includes(fontdata.items[font].family)){
 			var Avoid = document.createElement("div");
-			Avoid.classList.add('Avoid')
+			Avoid.classList.add('avoid')
 			Avoid.innerHTML = 'Avoid This Font'
 		wrapper_title.appendChild(Avoid)
 		}
@@ -358,6 +525,7 @@ function initiate(){
 			                clip-path: '+FontsInUseArray[selectedobject].textbox_style[i].optional.clip_path+';\
 			                white-space: '+FontsInUseArray[selectedobject].textbox_style[i].optional.white_space+';\
 			                mix-blend-mode: '+FontsInUseArray[selectedobject].textbox_style[i].optional.mix_blend_mode+';\
+			                border-left: '+FontsInUseArray[selectedobject].textbox_style[i].optional.border_left+';\
 							\
 			                left: '+FontsInUseArray[selectedobject].textbox_style[i].location.left+'%;\
 			                top: '+FontsInUseArray[selectedobject].textbox_style[i].location.top+'%;\
@@ -373,6 +541,37 @@ function initiate(){
 			                text-align:  '+FontsInUseArray[selectedobject].textbox_style[i].font.text_align+';\
 			                text-transform:  '+FontsInUseArray[selectedobject].textbox_style[i].font.text_transform+';\
 	    				}'
+	    				// console.log(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_size === "")
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_size === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                font-size: '+(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_size/630)*wrapper_height+'px;}'
+		    					}
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_style === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                font-style: '+FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_style+'}'
+		    					}
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_weight === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                font-weight: '+FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.font_weight+'}'
+		    					}
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.line_height === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                line-height: '+FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.line_height+'em}'
+		    					}
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.text_align === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                text-align:  '+FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.text_align+'}'
+		    					}
+		    					if(FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.text_transform === ""){}else{
+	    							style.innerHTML += 
+		    						'.textbox_'+i+'::first-line{\
+					                text-transform:  '+FontsInUseArray[selectedobject].textbox_style[i].optional.first_line.text_transform+'}'
+		    					}
 	    				if(isNaN(FontsInUseArray[selectedobject].textbox_style[i].whole.height)){
 							style.innerHTML += 
 			    				'.textbox_'+i+'{\
@@ -395,40 +594,23 @@ function initiate(){
 		var colorarray_length = ColorArray.length
 		for (var i = colorarray_length-1; i >= 0; i--) {
 			if(FontsInUseArray[selectedobject].color.generate_color){
-				style.innerHTML += 
-					'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper{\
-						background : '+ColorArray[i].background_color+'\
-					}'
-					for (var k = FontsInUseArray[selectedobject].color.mainfont_color.length - 1; k>= 0; k--) {
-						style.innerHTML += 
-						'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div:nth-child('+FontsInUseArray[selectedobject].color.mainfont_color[k]+'){\
-						color :  '+ColorArray[i].fontcolor+'\
-						}'
-					}
-					for (var j = FontsInUseArray[selectedobject].color.mainfont_color.length - 1; j >= 0; j--) {
-						style.innerHTML += 
-						'.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>div:nth-child('+FontsInUseArray[selectedobject].color.subfont_color[j]+'){\
-							color : '+ColorArray[i].subfontcolor+'\
-						}'
-					}
+
+				if(FontsInUseArray[selectedobject].color.different_background_color_for_each_textbox){
+					style.innerHTML += '.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>.textbox:nth-child(2n){ background : '+ColorArray[i].main_background_color+'}\
+										.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>.textbox:nth-child(2n-1){ background : '+ColorArray[i].sub_background_color+'}'
+				}else{
+					style.innerHTML += '.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper{ background : '+ColorArray[i].main_background_color+'}'
+				}
+
+				if(FontsInUseArray[selectedobject].color.different_font_color_for_each_textbox){
+					style.innerHTML += '.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>.textbox:nth-child(2n){ color : '+ColorArray[i].main_font_color+'}\
+										.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>.textbox:nth-child(2n-1){ color : '+ColorArray[i].sub_font_color+'}'
+				}else{
+					style.innerHTML += '.wrapper_title:nth-child('+colorarray_length+'n-'+i+')>.wrapper>*{ color : '+ColorArray[i].main_font_color+'}'
+				}
 			}
 		}
 		document.getElementsByTagName('head')[0].appendChild(style);
 	}
-	// function create_color(selectedcolor){
-	// 	var style = document.createElement('style');
-	// 	style.type = 'text/css';
-	// 		style.innerHTML += 
- //    				'.wrapper>.textbox{\
-	// 	                background: '+ColorArray[selectedcolor].background_color+';\
-	// 	                color: '+ColorArray[selectedcolor].fontcolor+';\
- //    				}\
- //    				.wrapper>.textbox:nth-last-child(2){\
-	// 	                background: transparent;\
-	// 	                color: '+ColorArray[selectedcolor].subfontcolor+';\
- //    				}\
- //    				'
-	// 	document.getElementsByTagName('head')[0].appendChild(style);
-	// }
 });
 

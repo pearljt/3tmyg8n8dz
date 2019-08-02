@@ -11,11 +11,15 @@ const FontsInUseArray = [{
 			force_font_category: [
 		        ]
 		},
-		wrapper_style: {
-					generate_color: true/false,
-	                background: '',
-	                color:'' 
-						},
+		color: 	{
+					generate_color:,
+
+					different_background_color_for_each_textbox:, 
+					different_font_color_for_each_textbox:,
+
+	                background: 'url(img/stone_01.png) no-repeat center/cover',
+	                color:'#dce9ff'
+	            		},
 		textbox_style: [
 							{
 								whole: {	
@@ -29,13 +33,23 @@ const FontsInUseArray = [{
 						                clip_path:,
 						                white_space:,
 						                mix_blend_mode:,
+						                border_left: 'none',
+						                first_line:{
+							                font_size: '',
+							                font_weight: '',
+							                font_style: '',
+							                line_height: '',
+							                text_align: '',
+							                text_transform: '',
+											},
 												},
 								location: {	
 						                left:,
 						               	top:,
-						                padding:,
-						                padding_top:,
-						                transform:,
+						                padding: ,
+						                padding_top: ,
+						                padding_bottom:,
+						                transform: ,
 												},
 								font: {		
 						                font_size:,
@@ -53,23 +67,31 @@ const FontsInUseArray = [{
 						                height:%,
 						                width:%,
 						                opacity: 1,
-						                background:,
 											},
 								optional: {	
-						                box_shadow:,
+    									justify_content:,
 						                clip_path:,
 						                white_space:,
 						                mix_blend_mode:,
+						                border_left: 'none',
+						                first_line:{
+							                font_size: '',
+							                font_weight: '',
+							                font_style: '',
+							                line_height: '',
+							                text_align: '',
+							                text_transform: '',
+											},
 												},
 								location: {	
-						                margin_left:,
-						                margin_top:,
-						                padding:,
-						                padding_top:,
-						                transform:,
+						                left:,
+						               	top:,
+						                padding: ,
+						                padding_top: ,
+						                padding_bottom:,
+						                transform: ,
 												},
 								font: {		
-						                font_family:,
 						                font_size:,
 						                font_style:,
 						                font_weight:,

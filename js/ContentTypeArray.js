@@ -5,7 +5,9 @@ const ContentTypeArray ={
 		'Good things come to those who wait',
 		'Offer no angles to the wind',
 		'A cat may look at a king',
-		'I trust so, and I only trust'
+		'I trust so, and I only trust',
+		'It was going to be a lonely trip back.',
+		'The face of the moon was in shadow.'
 	],
 	character : [
 		's', 'p', 'k'
@@ -32,10 +34,9 @@ const ContentTypeArray ={
 		My gaolers turned the key in the door, \
 		and I could hear them shifting their feet\
 		as they stood on guard outside.'
-
 	],
 	specialCharacter : [
-		'* % & {} # * % & {} #'
+		'& % * {} # & % * {} #'
 
 	],
 	words : [
